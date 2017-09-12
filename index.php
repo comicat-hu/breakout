@@ -13,11 +13,10 @@
 
 <body>
     <form action="index.php" method="post">
-        <!-- <label>Name: </label> -->
         <input type="text" name="username" placeholder="Name" class="username" required>
         <br><br>
-        <input type="submit" name="submit" value="START" class="submit"><br>
-        <a href="record.php">RECORD</a>
+        <input type="submit" name="submit" value="-START-" class="submit"><br>
+        <a href="record.php">-RECORD-</a>
         
     </form>
 

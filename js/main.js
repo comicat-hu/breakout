@@ -1,7 +1,7 @@
 var canvas = document.querySelector(".canvas");
 var ctx = canvas.getContext("2d");
 
-var zoom = 0.8;
+var zoom = 0.9;
 canvas.width = window.innerWidth * zoom;
 canvas.height = window.innerHeight * zoom;
 
@@ -115,7 +115,7 @@ function collisionDetection() {
                         alert("WIN!");
                         win = true;
                         putRecord().then(() => {
-                            document.location.reload();
+                            location.href = "record.php";
                         });
                     }
                 }
@@ -204,7 +204,7 @@ function draw() {
             alert("GAME OVER");
             win = false;
             putRecord().then(() => {
-                document.location.reload();
+                location.href = "record.php";
             });
         }
     }
