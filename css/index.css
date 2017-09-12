@@ -1,0 +1,36 @@
+body {
+    font-family: "Consolas", "Calibri", "Courier New", "monospace";
+    font-size: 50px;
+}
+
+form {
+    width: 100%;
+    text-align: center;
+}
+
+.submit {
+    background: none;
+    border: none;
+    font-size: 50px;
+    font-family: "Consolas";
+    color: #000;
+}
+
+.submit:hover {
+    cursor: pointer;
+    color: #00A4EF;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #00A4EF;
+}
+
+.username {
+    text-align: center;
+    font-size: 30px;
+}
