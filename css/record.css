@@ -1,6 +1,33 @@
 body {
     font-family: "Consolas", "Calibri", "Courier New", "monospace";
-    background-image: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%,rgba(255,255,255,0.9) 100%), url("../img/color.png");
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%), url("../img/color.png");
+}
 
-    
+legend {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.bar {
+    height: 20px;
+    background-color: #00A4EF;
+    animation-name: barFrame;
+    animation-duration: 2s;
+    transform-origin: left;
+}
+
+.total {
+    height: 20px;
+    animation-name: barFrame;
+    animation-duration: 2s;
+    transform-origin: center;
+}
+
+@keyframes barFrame {
+    0% {
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1.0);
+    }
 }

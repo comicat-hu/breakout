@@ -24,7 +24,6 @@
     <script>
         var username = <?php echo '"' . $_SESSION["username"] .'"'; ?>;
         var lastloginTS = <?php echo '"' . $_SESSION["loginTS"] .'"'; ?>;
-        console.log(username);
 
         let putUrl = "php/putmongo.php";
         let getUrl = "php/getmongo.php";
