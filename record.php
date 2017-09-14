@@ -27,8 +27,8 @@
             <option value="_id" <?php echo (isset($_POST['sortBy']) && $_POST['sortBy'] === '_id') ? 'selected' : ''; ?> >Username</option>
         </select>
         <select name="order" onchange="this.form.submit();">
-            <option value="-1">Asc</option>
-            <option value="1" <?php echo (isset($_POST['order']) && $_POST['order'] === '1') ? 'selected' : ''; ?> >Desc</option>
+            <option value="-1">Desc</option>
+            <option value="1" <?php echo (isset($_POST['order']) && $_POST['order'] === '1') ? 'selected' : ''; ?> >Asc</option>
         </select>
     </form>
     <?php require 'php/allrecord.php' ?>

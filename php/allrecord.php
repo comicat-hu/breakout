@@ -62,21 +62,17 @@ foreach ($doc as $id => $value) {
 
 
 // Use for fix db data type
-/*
-function fix()
-{
-    foreach ($doc as $id => $value) {
+// foreach ($doc as $id => $value) {
 
-        $dataToSave = array(
-            '_id' => (string)$id,
-            'lastloginTS' => (int)$value['lastloginTS'],
-            'win' => (int)$value['win'],
-            'lose' => (int)$value['lose'],
-            'totalScore' => (int)$value['totalScore'],
-            'totalPlayTime' => (int)$value['totalPlayTime'],
-        );
+//     $dataToSave = array(
+//         '_id' => (string)$id,
+//         'lastloginTS' => (int)$value['lastloginTS'],
+//         'win' => (int)$value['win'],
+//         'lose' => (int)$value['lose'],
+//         'totalScore' => (int)$value['totalScore'],
+//         'totalPlayTime' => (int)$value['totalPlayTime'],
+//     );
 
-        echo json_encode($cUsers->save($dataToSave));
-    }
-}
-*/
+//     echo json_encode($cUsers->save($dataToSave));
+// }
+
