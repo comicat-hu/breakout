@@ -30,34 +30,35 @@
      * @link     None
      */
 
+    require_once 'php/lib.php';
+
     $postData = $_POST;
     if (!empty($postData)) {
         if (isset($postData["username"])) {
             $username = convertInput($_POST["username"]);
-            if (strlen($username) > 0) {
+            if (strlen($username) > 0 && strlen($username) <= 20) {
                 session_start();
                 $_SESSION["username"] = $username;
                 $_SESSION["loginTS"] = time();
                 header("location:main.php");
+            } else {
+                echo '<script>alert("valid name");</script>';
             }
         }
     }
-    /**
-     * Return convert special chars and more spaces
-     * 
-     * @param string $data input
-     * 
-     * @return string
-     */
-    function convertInput($data) 
-    {
-        $data = trim($data); // Remove more space
-        $data = stripcslashes($data); // Remove "\"
-        $data = htmlspecialchars($data); // HTML special chars encode
-        return $data;
-    }
     
     ?>
+
+    <script>
+        var usernameElement = document.querySelector(".username");
+        usernameElement.addEventListener('keyup', () => {
+            var username = usernameElement.value;
+            console.log(username);
+            if(username.length > 20) {
+                usernameElement.value = usernameElement.value.substr(0, 20);
+            }
+        });
+    </script>
 </body>
 
 </html>

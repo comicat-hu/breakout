@@ -23,20 +23,23 @@ try {
 $db = $mongoClient->$dbname;
 $cUsers = $db->users;
 
-
-
 if (!empty($_POST)) {
 
     $postData = $_POST;
 
-    $dataToSave = array(
-        '_id' => (string)$postData['_id'],
-        'lastloginTS' => (int)$postData['lastloginTS'],
-        'win' => (int)$postData['win'],
-        'lose' => (int)$postData['lose'],
-        'totalScore' => (int)$postData['totalScore'],
-        'totalPlayTime' => (int)$postData['totalPlayTime'],
-    );
+    try {
+        $dataToSave = array(
+            '_id' => (string)$postData['_id'],
+            'lastloginTS' => (int)$postData['lastloginTS'],
+            'win' => (int)$postData['win'],
+            'lose' => (int)$postData['lose'],
+            'totalScore' => (int)$postData['totalScore'],
+            'totalPlayTime' => (int)$postData['totalPlayTime'],
+        );
+    } catch (Exception $e) {
+        echo json_encode(array('errmsg' => 'valid _id.'));
+        exit;
+    }
 
     echo json_encode($cUsers->save($dataToSave));
 }

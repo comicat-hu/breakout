@@ -25,23 +25,18 @@ $cUsers = $db->users;
 
 if (!empty($_POST)) {
     $postData = $_POST;
+
+    $query;
+    try {
+        $query = (string)$postData['_id'];
+    } catch (Exception $e) {
+        echo json_encode(array('errmsg' => 'valid _id.'));
+        exit;
+    }
+
+
     $userData = $cUsers->findOne($postData);
     echo json_encode($userData);
 } else {
     echo json_encode(array('errmsg' => 'post data is empty.'));
-}
-
-/**
- * Return convert special chars and more spaces
- * 
- * @param string $data input
- * 
- * @return string
- */
-function convertInput($data) 
-{
-    $data = trim($data); // Remove more space
-    $data = stripcslashes($data); // Remove "\"
-    $data = htmlspecialchars($data); // HTML special chars encode
-    return $data;
 }
