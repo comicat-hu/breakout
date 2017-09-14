@@ -2,6 +2,7 @@ body {
     font-family: "Consolas", "Calibri", "Courier New", "monospace";
     font-size: 50px;
     background-image: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.5) 100%), url("../img/color3.png");
+    background-size: cover;
 }
 
 form {
@@ -16,6 +17,7 @@ form {
     font-size: 50px;
     font-family: "Consolas";
     color: #000;
+    text-decoration: none;
 }
 
 .submit:hover {

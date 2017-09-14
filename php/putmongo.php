@@ -13,20 +13,29 @@ $config = include 'config.php';
 $dbhost = $config['dbhost'];
 $dbname = $config['dbname'];
 
-$mongoClient = new MongoClient('mongodb://' . $dbhost);
+try {
+    $mongoClient = new MongoClient('mongodb://' . $dbhost);
+} catch (Exception $e) {
+    echo json_encode(array('errmsg' => 'Failed connect to db.'));
+    exit;
+}
 
 $db = $mongoClient->$dbname;
 $cUsers = $db->users;
 
-if ($_POST) {
+
+
+if (!empty($_POST)) {
+
+    $postData = $_POST;
 
     $dataToSave = array(
-        '_id' => (string)$_POST['_id'],
-        'lastloginTS' => (int)$_POST['lastloginTS'],
-        'win' => (int)$_POST['win'],
-        'lose' => (int)$_POST['lose'],
-        'totalScore' => (int)$_POST['totalScore'],
-        'totalPlayTime' => (int)$_POST['totalPlayTime'],
+        '_id' => (string)$postData['_id'],
+        'lastloginTS' => (int)$postData['lastloginTS'],
+        'win' => (int)$postData['win'],
+        'lose' => (int)$postData['lose'],
+        'totalScore' => (int)$postData['totalScore'],
+        'totalPlayTime' => (int)$postData['totalPlayTime'],
     );
 
     echo json_encode($cUsers->save($dataToSave));

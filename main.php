@@ -17,6 +17,13 @@
 </head>
 
 <body>
+    <header>
+        <h3>
+            <a href="index.php">Index</a>
+            <a href="record.php">Record</a>
+        </h3>
+    </header>
+
     <canvas class="canvas"></canvas>
 
     <script src="js/main.js"></script>
@@ -30,9 +37,15 @@
 
         $.post(getUrl, {"_id": username})
         .done((response) => {
+
             var userData = JSON.parse(response);
-            console.log(userData);
+
+            if(userData && userData.errmsg) {
+                return alert(userData.errmsg);
+            }
+            
             if(!userData) {
+
                 $.post(putUrl, {
                     "_id": username,
                     "lastloginTS": lastloginTS,
@@ -42,8 +55,14 @@
                     "totalPlayTime": 0,
                 }).done((res) => {
                     console.log(res);
+                })
+                .fail(() => {
+                    alert("put fail");
                 });
             }
+        })
+        .fail(() => {
+            alert("get fail");
         });
 
     </script>

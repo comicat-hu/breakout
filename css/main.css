@@ -3,6 +3,15 @@ body {
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%), url("../img/color.png");    
 }
 
-.canvas {
-    background-color: #D0D0D0;
+a {
+    color: #0271BC;
 }
+
+a:hover {
+    color: #00A4EF;
+}
+
+.canvas {
+    background-color: #A7C0DC;
+}
+

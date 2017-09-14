@@ -2,7 +2,7 @@ var canvas = document.querySelector(".canvas");
 var ctx = canvas.getContext("2d");
 
 var zoom = 0.9;
-canvas.width = window.innerWidth * zoom;
+canvas.width = window.innerWidth;
 canvas.height = window.innerHeight * zoom;
 
 // paddle params
@@ -21,8 +21,6 @@ var y = canvas.height - paddleHeight - ballRadius;
 var speed = 10;
 var dx = speed;
 var dy = -speed;
-var px, py;
-
 
 // brick params
 var brickRowCount = 5;
@@ -61,7 +59,6 @@ function drawPaddle() {
     ctx.closePath();
 }
 
-
 function drawBricks() {
     for (var c = 0; c < brickColumnCount; c++) {
         for (var r = 0; r < brickRowCount; r++) {
@@ -92,15 +89,6 @@ function drawTime() {
     ctx.fillText("Time: " + time, 120, 20);
 }
 
-function collisionDirection(bx, by) {
-    if (px <= bx || px >= bx + birckWidth) {
-        dx = -dx;
-    }
-    if (py <= by || py >= by + birckHeight) {
-        dy = -dy;
-    }
-}
-
 function collisionDetection() {
     for (var c = 0; c < brickColumnCount; c++) {
         for (var r = 0; r < brickRowCount; r++) {
@@ -108,7 +96,6 @@ function collisionDetection() {
             if (b.status === 1) {
                 if (x >= b.x && x <= b.x + brickWidth && y >= b.y && y <= b.y + brickHeight) {
                     dy = -dy;
-                    //collisionDirection(b.x, b.y);
                     b.status = 0;
                     score++;
 
@@ -117,7 +104,6 @@ function collisionDetection() {
         }
     }
 }
-
 
 function keyDownHandler(e) {
     if (e.keyCode == 39) {
@@ -153,7 +139,6 @@ function mouseUpHandler(e) {
     }
 }
 
-
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
@@ -185,8 +170,6 @@ function draw() {
         }
     }
 
-
-
     if (rightPressed && paddleX < canvas.width - paddleWidth) {
         paddleX += 5;
     }
@@ -194,17 +177,13 @@ function draw() {
         paddleX -= 5;
     }
 
-
     if (start) {
-        px = x;
-        py = y;
         x += dx;
         y += dy;
         collisionDetection();
     } else {
         x = paddleX + paddleWidth / 2;
     }
-
 
     if (score === brickRowCount * brickColumnCount) {
         clearInterval(runInterval);
@@ -221,36 +200,37 @@ function draw() {
     // if (reqAF) {
     //     requestAnimationFrame(draw);
     // }
-
 }
 
 function putRecord() {
     return new Promise((resolve, reject) => {
-        console.log("putRecord");
-        console.log(username);
+        console.log("try put " + username + " record...");
 
         let putUrl = "php/putmongo.php";
         let getUrl = "php/getmongo.php";
 
         $.post(getUrl, { "_id": username })
-            .done((response) => {
-                console.log(response);
-                var userData = JSON.parse(response);
-                $.post(putUrl, {
-                    "_id": username,
-                    "lastloginTS": lastloginTS,
-                    "win": parseInt(userData["win"], 10) + win,
-                    "lose": parseInt(userData["lose"], 10) + !win,
-                    "totalScore": parseInt(userData["totalScore"], 10) + score,
-                    "totalPlayTime": parseInt(userData["totalPlayTime"], 10) + time,
-                }).done((res) => {
-                    console.log(res);
-                    return resolve();
-                });
+        .done((response) => {
+            console.log(response);
+
+            var userData = JSON.parse(response);
+
+            $.post(putUrl, {
+                "_id": username,
+                "lastloginTS": lastloginTS,
+                "win": parseInt(userData["win"], 10) + win,
+                "lose": parseInt(userData["lose"], 10) + !win,
+                "totalScore": parseInt(userData["totalScore"], 10) + score,
+                "totalPlayTime": parseInt(userData["totalPlayTime"], 10) + time,
+            })
+            .done((res) => {
+                console.log(res);
+                return resolve();
             });
+
+        });
     });
 }
-
 
 for (c = 0; c < brickColumnCount; c++) {
     bricks[c] = [];
@@ -262,7 +242,6 @@ for (c = 0; c < brickColumnCount; c++) {
         };
     }
 }
-
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
