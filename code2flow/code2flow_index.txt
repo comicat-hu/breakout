@@ -1,0 +1,29 @@
+index.php;
+if(輸入名字){
+  if(名字長度 > 20) {
+    留前20個字;
+  }
+  return;
+} else {
+  return;
+}
+
+index.php;
+if(Click START){
+  if(0 < 名字長度 <= 20){
+      轉換特殊字元
+      SESSION存入名字和登入時間;
+      導向main.php;
+  }
+  return;
+} else {
+  return;
+}
+
+index.php;
+if(Click RECORD) {
+    導向record.php;
+    return;
+} else {
+  return;
+}

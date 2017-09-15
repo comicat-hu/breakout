@@ -1,0 +1,25 @@
+main.php;
+
+load main.js;
+while(draw()){
+  if(win or lose){
+    記錄及結果到DB;
+    break;
+  }
+}
+return;
+
+main.php;
+
+Ajax post
+getmongo.php
+查詢使用者資料;
+
+if(使用者不存在) {
+    Ajax post 
+    putmongo.php
+    存入初始資料;
+    return;
+} else {
+  return;
+}

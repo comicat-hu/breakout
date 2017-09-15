@@ -1,0 +1,15 @@
+record.php;
+
+allrecord.php;
+
+呈現記錄資料;
+
+
+if(選單值改變){
+    post選單值給
+    allrecord.php;
+    改變資料排序;
+    呈現記錄資料;
+}
+
+return;
