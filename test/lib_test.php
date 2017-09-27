@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once '../php/lib.php';
+require_once './php/lib.php';
 
 class InputTest extends TestCase
 {

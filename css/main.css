@@ -1,6 +1,6 @@
 body {
     font-family: "Consolas", "Calibri", "Courier New", "monospace";
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%), url("../img/color.png");    
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%), url("../img/color.png");  
 }
 
 a {
@@ -13,5 +13,6 @@ a:hover {
 
 .canvas {
     background-color: #A7C0DC;
+    position: absolute;
 }
 

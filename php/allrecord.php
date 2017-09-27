@@ -37,7 +37,6 @@ if ($_POST) {
 $doc->sort(array($sortBy => $order));
 
 foreach ($doc as $id => $value) {
-
     $total = (int)$value["win"] + (int)$value["lose"];
 
     if ($total === 0) {
@@ -60,7 +59,6 @@ foreach ($doc as $id => $value) {
     echo "</fieldset>";
 }
 
-
 // Use for fix db data type
 // foreach ($doc as $id => $value) {
 
@@ -75,4 +73,3 @@ foreach ($doc as $id => $value) {
 
 //     echo json_encode($cUsers->save($dataToSave));
 // }
-

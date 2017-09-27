@@ -1,9 +1,10 @@
 var canvas = document.querySelector(".canvas");
 var ctx = canvas.getContext("2d");
 
-var zoom = 0.9;
-canvas.width = window.innerWidth;
+var zoom = 0.8;
+canvas.width = window.innerWidth * 0.6;
 canvas.height = window.innerHeight * zoom;
+canvas.style.left = (window.innerWidth-canvas.width)/2 + "px";
 
 // paddle params
 var paddleHeight = 10;
@@ -43,6 +44,11 @@ var win = false;
 var reqAF = true;
 var fontColor = "#4862A3";
 
+// text params
+var textY = 20;
+
+var isCollision = false;
+
 function drawBall() {
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -80,13 +86,13 @@ function drawBricks() {
 function drawScore() {
     ctx.font = "16px Consolas";
     ctx.fillStyle = fontColor;
-    ctx.fillText("Score: " + score, 8, 20);
+    ctx.fillText("Score: " + score, 8, textY);
 }
 
 function drawTime() {
     ctx.font = "16px Consolas";
     ctx.fillStyle = fontColor;
-    ctx.fillText("Time: " + time, 120, 20);
+    ctx.fillText("Time: " + time, 120, textY);
 }
 
 function collisionDetection() {
@@ -95,10 +101,13 @@ function collisionDetection() {
             var b = bricks[c][r];
             if (b.status === 1) {
                 if (x >= b.x && x <= b.x + brickWidth && y >= b.y && y <= b.y + brickHeight) {
+                    ctx.clearRect(x-dx-ballRadius,y-dy-ballRadius, ballRadius*2, ballRadius*2);                    
                     dy = -dy;
                     b.status = 0;
                     score++;
-
+                    isCollision = true;
+                    ctx.clearRect(8, 0, 88, textY);
+                    drawScore();
                 }
             }
         }
@@ -135,17 +144,42 @@ function mouseUpHandler(e) {
     if (e.which === 3) {
         document.querySelector(".canvas").oncontextmenu = function (e) { return false; }
         start = true;
-        timeInterval = setInterval(() => { time++; }, 1000);
+        timeInterval = setInterval(() => { 
+            time++;
+            ctx.clearRect(120, 0, 100, textY);
+            drawTime();
+        }, 1000);
     }
 }
 
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (start) {
+        // clear ball
+        ctx.clearRect(x-dx-ballRadius,y-dy-ballRadius, ballRadius*2, ballRadius*2);
+
+        // clear text
+        //ctx.clearRect(8, 0, canvas.width/4, textY);
+
+        if (true) {
+            // clear brick
+            ctx.clearRect(brickOffsetLeft, brickOffsetTop, (brickWidth+brickPadding)*brickColumnCount, (brickHeight+brickPadding)*brickRowCount);
+
+            drawBricks();
+            isCollision = false;
+        }
+        //drawScore();
+        //drawTime();
+    } else {
+        // clear paddle with ball
+        ctx.clearRect(0, canvas.height - paddleHeight - ballRadius*2, canvas.width, paddleHeight + ballRadius*2);        
+    }
+    // clear paddle
+    ctx.clearRect(0, canvas.height - paddleHeight, canvas.width, paddleHeight);             
+    
     drawBall();
     drawPaddle();
-    drawBricks();
-    drawScore();
-    drawTime();
+
 
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -249,5 +283,7 @@ document.querySelector(".canvas").addEventListener("mousemove", mouseMoveHandler
 
 document.querySelector(".canvas").addEventListener("mouseup", mouseUpHandler);
 
+drawScore();
+drawBricks();
 //draw();
-runInterval = setInterval(draw, 50);
+runInterval = setInterval(draw, 30);
